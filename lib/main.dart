@@ -18,20 +18,115 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Dynamic Buttons')),
+        backgroundColor: AppColors.backgroundColor,
+        appBar: AppBar(
+          title: Text(''),
+          backgroundColor: AppColors.backgroundColor,
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 70),
-                child: Image.asset(ImagePaths.dogImage),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(100),
+                    child: Image.asset(
+                      ImagePaths.profileImage,
+                      height: 120,
+                      width: 120,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            "John_Doe",
+                            style: TextStyle(
+                              color: AppColors.textColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          ProfileButtons(title: "Edit Profile"),
+                          SizedBox(width: 8),
+                          ProfileButtons(title: "Share"),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+
+                        children: [
+                          Text(
+                            "13 posts",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.textColor,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            "200 followers",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.textColor,
+                            ),
+                          ),
+                          SizedBox(width: 8),
+                          Text(
+                            "13 following",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w800,
+                              color: AppColors.textColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(
+                        "John Doe",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-              ElevatedButton(onPressed: (){}, child: Text("data"))
-              // Image.asset(ImagePaths.dogImage),
-              // Image.asset(ImagePaths.dogImage),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProfileButtons extends StatelessWidget {
+  final String title;
+
+  const ProfileButtons({required this.title, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: AppColors.secondaryColor,
+      ),
+      child: Text(
+        "${title}",
+        style: TextStyle(
+          color: AppColors.textColor,
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
         ),
       ),
     );
