@@ -1,5 +1,6 @@
 import 'package:demoapp/colors.dart';
 import 'package:demoapp/image_paths.dart';
+import 'package:demoapp/second.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,6 +8,15 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomePage(), // Move your UI here
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
   final List<String> buttonTitles = [
     'login',
     'sign up',
@@ -16,97 +26,105 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      appBar: AppBar(
+        title: Text(''),
         backgroundColor: AppColors.backgroundColor,
-        appBar: AppBar(
-          title: Text(''),
-          backgroundColor: AppColors.backgroundColor,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.asset(
-                      ImagePaths.profileImage,
-                      height: 120,
-                      width: 120,
-                    ),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset(
+                    ImagePaths.profileImage,
+                    height: 120,
+                    width: 120,
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "John_Doe",
-                            style: TextStyle(
-                              color: AppColors.textColor,
-                              fontSize: 20,
-                              fontWeight: FontWeight.w700,
-                            ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          "John_Doe",
+                          style: TextStyle(
+                            color: AppColors.textColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
                           ),
-                          SizedBox(width: 8),
-                          ProfileButtons(title: "Edit Profile"),
-                          SizedBox(width: 8),
-                          ProfileButtons(title: "Share"),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-
-                        children: [
-                          Text(
-                            "13 posts",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.textColor,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            "200 followers",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.textColor,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            "13 following",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.textColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        "John Doe",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.textColor,
                         ),
+                        SizedBox(width: 8),
+                        ProfileButtons(title: "Edit Profile"),
+                        SizedBox(width: 8),
+                        ProfileButtons(title: "Share"),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "13 posts",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.textColor,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          "200 followers",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.textColor,
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Text(
+                          "13 following",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w800,
+                            color: AppColors.textColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Text(
+                      "John Doe",
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textColor,
                       ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const SecondPage()),
+                );
+              },
+              child: Text("PRESS"),
+            )
+          ],
         ),
       ),
     );
   }
 }
+
+
 
 class ProfileButtons extends StatelessWidget {
   final String title;
