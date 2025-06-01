@@ -31,7 +31,23 @@ class HomePage extends StatelessWidget {
                   ElevatedButton(onPressed: (){c.resetCount();}, child: Text("Reset")),
                   ElevatedButton(onPressed: (){c.increaseCount();}, child: Text("Increase"))
                 ],
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              InkWell(
+                onTap: (){
+                  c.toggleLikeStatus();
+                },
+                child: Obx((){
+                  if(c.isLiked.value==true){
+                   return Icon(Icons.favorite,color: Colors.red,);
+                  }else{
+                    return Icon(Icons.favorite_border,color: Colors.red,);
+                  }
+                }),
               )
+
             ],
           ),
         ),
