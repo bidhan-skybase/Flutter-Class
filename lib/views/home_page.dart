@@ -23,14 +23,19 @@ class HomePage extends StatelessWidget {
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
                 );
               }),
-             Text("this is the count")
+             Text("this is the count"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(onPressed: (){c.decreaseCount();}, child: Text("Decrease")),
+                  ElevatedButton(onPressed: (){c.resetCount();}, child: Text("Reset")),
+                  ElevatedButton(onPressed: (){c.increaseCount();}, child: Text("Increase"))
+                ],
+              )
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: () {
-        c.increaseCount();
-      }),
     );
   }
 }
