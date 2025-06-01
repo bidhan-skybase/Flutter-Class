@@ -1,5 +1,6 @@
 import 'package:demoapp/colors.dart';
 import 'package:demoapp/image_paths.dart';
+import 'package:demoapp/views/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -17,23 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text('Dynamic Buttons')),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 70),
-                child: Image.asset(ImagePaths.dogImage),
-              ),
-              IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-              ElevatedButton(onPressed: (){}, child: Text("data"))
-              // Image.asset(ImagePaths.dogImage),
-              // Image.asset(ImagePaths.dogImage),
-            ],
-          ),
-        ),
-      ),
+      home: LoginPage(),
     );
   }
 }
