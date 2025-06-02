@@ -17,37 +17,57 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               //to reflect observable variable changes
-              Obx((){
+              Obx(() {
                 return Text(
                   c.count.value.toString(),
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
                 );
               }),
-             Text("this is the count"),
+              Text("this is the count"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: (){c.decreaseCount();}, child: Text("Decrease")),
-                  ElevatedButton(onPressed: (){c.resetCount();}, child: Text("Reset")),
-                  ElevatedButton(onPressed: (){c.increaseCount();}, child: Text("Increase"))
+                  ElevatedButton(
+                    onPressed: () {
+                      c.decreaseCount();
+                    },
+                    child: Text("Decrease"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      c.resetCount();
+                    },
+                    child: Text("Reset"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      c.increaseCount();
+                    },
+                    child: Text("Increase"),
+                  ),
                 ],
               ),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
               InkWell(
-                onTap: (){
+                onTap: () {
                   c.toggleLikeStatus();
                 },
-                child: Obx((){
-                  if(c.isLiked.value==true){
-                   return Icon(Icons.favorite,color: Colors.red,);
-                  }else{
-                    return Icon(Icons.favorite_border,color: Colors.red,);
+                child: Obx(() {
+                  if (c.isLiked.value == true) {
+                    return Icon(Icons.favorite, color: Colors.red);
+                  } else {
+                    return Icon(Icons.favorite_border, color: Colors.red);
                   }
                 }),
-              )
+              ),
+              Container(height: Get.width / 4, width: Get.width / 5),
 
+              ElevatedButton(
+                onPressed: () {
+                  Get.snackbar("Title", "This is a snackbar",backgroundColor: Colors.blue);
+                },
+                child: Text("Press for snackbar"),
+              ),
             ],
           ),
         ),
