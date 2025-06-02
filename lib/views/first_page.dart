@@ -18,7 +18,8 @@ class FirstPage extends StatelessWidget {
             onPressed: () {
               // Get.to(()=>SecondPage());
               // Get.off(()=>SecondPage());
-              Get.offAll(()=>SecondPage());
+              Get.to(SecondPage(), arguments: "Hello from Page 1");
+
 
             },
             child: Text("Press for Second page"),

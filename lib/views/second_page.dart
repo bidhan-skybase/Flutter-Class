@@ -6,21 +6,11 @@ class SecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(
-        title: Text("Second page"),
-      ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: () {
-             Get.back();
+    final data = Get.arguments;
 
-            },
-            child: Text("Press for Second page"),
-          ),
-        ],
-      ),
+    return Scaffold(
+      appBar: AppBar(title: Text("Second page")),
+      body: Column(children: [Text(data.toString())]),
     );
   }
 }
