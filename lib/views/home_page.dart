@@ -1,4 +1,6 @@
 import 'package:demoapp/controllers/home_page_controller.dart';
+import 'package:demoapp/image_paths.dart';
+import 'package:demoapp/views/details_page.dart';
 import 'package:demoapp/views/first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,74 +16,49 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Home Page")),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              //to reflect observable variable changes
-              Obx(() {
-                return Text(
-                  c.count.value.toString(),
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
-                );
-              }),
-              Text("this is the count"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      c.decreaseCount();
-                    },
-                    child: Text("Decrease"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      c.resetCount();
-                    },
-                    child: Text("Reset"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      c.increaseCount();
-                    },
-                    child: Text("Increase"),
-                  ),
-                ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            InkWell(
+              onTap: (){
+                Get.to(()=>DetailsPage(),arguments: c.product);
+              },
+              child: Container(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      c.product['imageUrl'],
+                      height: Get.height / 4,
+                      width: Get.height / 4,
+                      fit: BoxFit.fill,
+                    ),
+                    Text(
+                      c.product["name"],
+                      style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800),
+                    ),
+                    Text(
+                      c.product["category"],
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      c.product['price'],
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              SizedBox(height: 50),
-              InkWell(
-                onTap: () {
-                  c.toggleLikeStatus();
-                },
-                child: Obx(() {
-                  if (c.isLiked.value == true) {
-                    return Icon(Icons.favorite, color: Colors.red);
-                  } else {
-                    return Icon(Icons.favorite_border, color: Colors.red);
-                  }
-                }),
-              ),
-              Container(height: Get.width / 4, width: Get.width / 5),
-
-              ElevatedButton(
-                onPressed: () {
-                  Get.snackbar(
-                    "Title",
-                    "This is a snackbar",
-                    backgroundColor: Colors.blue,
-                  );
-                },
-                child: Text("Press for snackbar"),
-              ),
-
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(() => FirstPage());
-                },
-                child: Text("Press for first page"),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
