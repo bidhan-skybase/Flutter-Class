@@ -1,4 +1,5 @@
 import 'package:demoapp/controllers/home_page_controller.dart';
+import 'package:demoapp/views/first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -64,9 +65,20 @@ class HomePage extends StatelessWidget {
 
               ElevatedButton(
                 onPressed: () {
-                  Get.snackbar("Title", "This is a snackbar",backgroundColor: Colors.blue);
+                  Get.snackbar(
+                    "Title",
+                    "This is a snackbar",
+                    backgroundColor: Colors.blue,
+                  );
                 },
                 child: Text("Press for snackbar"),
+              ),
+
+              ElevatedButton(
+                onPressed: () {
+                  Get.to(() => FirstPage());
+                },
+                child: Text("Press for first page"),
               ),
             ],
           ),
