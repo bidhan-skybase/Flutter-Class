@@ -1,5 +1,6 @@
 import 'package:demoapp/colors.dart';
 import 'package:demoapp/views/home_page.dart';
+import 'package:demoapp/views/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +11,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(home: HomePage());
+    return GetMaterialApp(home: LoginPage());
   }
 }
 
