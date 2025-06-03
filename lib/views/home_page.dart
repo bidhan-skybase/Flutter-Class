@@ -12,44 +12,78 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Home Page")),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              //to reflect observable variable changes
-              Obx((){
-                return Text(
-                  c.count.value.toString(),
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
-                );
-              }),
-             Text("this is the count"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(onPressed: (){c.decreaseCount();}, child: Text("Decrease")),
-                  ElevatedButton(onPressed: (){c.resetCount();}, child: Text("Reset")),
-                  ElevatedButton(onPressed: (){c.increaseCount();}, child: Text("Increase"))
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              InkWell(
-                onTap: (){
-                  c.toggleLikeStatus();
+      body: Center(
+        child: Column(
+          children: [
+            Obx(() {
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: c.fruits.length,
+                itemBuilder: (context, index) {
+                  var fruit = c.fruits[index];
+                  return ListTile(
+                    title: Text(fruit),
+                    leading: Icon(Icons.abc),
+                    trailing: InkWell(
+                      onTap: () {
+                        c.deleteFruit(index);
+                      },
+                      child: Icon(Icons.delete),
+                    ),
+                  );
                 },
-                child: Obx((){
-                  if(c.isLiked.value==true){
-                   return Icon(Icons.favorite,color: Colors.red,);
-                  }else{
-                    return Icon(Icons.favorite_border,color: Colors.red,);
-                  }
-                }),
-              )
+              );
+            }),
 
-            ],
-          ),
+            SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () {
+                Get.bottomSheet(
+                  Container(
+                    height: Get.height / 2,
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Add a fruit",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        TextField(
+                          controller: c.fruitName,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        ElevatedButton(
+                          onPressed: () {
+                            c.addFruits();
+                          },
+                          child: Text("Save"),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+              child: Text("Press me"),
+            ),
+          ],
         ),
       ),
     );

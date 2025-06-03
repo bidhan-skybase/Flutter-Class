@@ -1,32 +1,23 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 //variable declaration
 //logic work
 // api calls
 class HomePageController extends GetxController {
+  //making the fruits list observable
+  RxList<String> fruits = ['mango', 'banana', 'apple', 'peach'].obs;
+  TextEditingController fruitName = TextEditingController();
 
-  //for making the variable observable.
-  RxInt count = 0.obs;
-
-  RxBool isLiked=true.obs;
-
-  void toggleLikeStatus(){
-    isLiked.value=!isLiked.value;
+  void addFruits() {
+    if (fruitName.text.isNotEmpty) {
+      fruits.add(fruitName.text);
+    }
   }
 
-  void increaseCount() {
-    count = count + 1;
-    print("the count is ${count}");
-  }
-
-
-  void decreaseCount() {
-    count = count - 1;
-    print("the count is ${count}");
-  }
-
-  void resetCount() {
-    count.value = 0;
-    print("the count is ${count}");
+  void deleteFruit(int index) {
+   if(index<fruits.length){
+     fruits.removeAt(index);
+   }
   }
 }
