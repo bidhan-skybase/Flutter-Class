@@ -43,4 +43,17 @@ class HomePageController extends GetxController {
   void changePage(int index){
     currentIndex.value=index;
   }
+
+  @override
+  void onInit(){
+    print("home page controller is called");
+    super.onInit();
+  }
+
+  @override
+  void dispose() {
+    print("home page controller is disposed");
+    // TODO: implement dispose
+    super.dispose();
+  }
 }

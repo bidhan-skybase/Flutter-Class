@@ -1,4 +1,9 @@
 import 'package:demoapp/controllers/home_page_controller.dart';
+import 'package:demoapp/views/error_page.dart';
+import 'package:demoapp/views/explore_page.dart';
+import 'package:demoapp/views/landing_page.dart';
+import 'package:demoapp/views/profile_pag.dart';
+import 'package:demoapp/views/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,7 +16,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Home Page")),
+      appBar: AppBar(),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
@@ -30,58 +35,19 @@ class HomePage extends StatelessWidget {
           }),
         ),
       ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              //to reflect observable variable changes
-              Obx(() {
-                return Text(
-                  c.count.value.toString(),
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
-                );
-              }),
-              Text("this is the count"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      c.decreaseCount();
-                    },
-                    child: Text("Decrease"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      c.resetCount();
-                    },
-                    child: Text("Reset"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      c.increaseCount();
-                    },
-                    child: Text("Increase"),
-                  ),
-                ],
-              ),
-              SizedBox(height: 50),
-              InkWell(
-                onTap: () {
-                  c.toggleLikeStatus();
-                },
-                child: Obx(() {
-                  if (c.isLiked.value == true) {
-                    return Icon(Icons.favorite, color: Colors.red);
-                  } else {
-                    return Icon(Icons.favorite_border, color: Colors.red);
-                  }
-                }),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: Obx((){
+        if(c.currentIndex.value==0){
+          return LandingPage();
+        }else if(c.currentIndex.value==1){
+          return ExplorePage();
+        }else if(c.currentIndex.value==2){
+          return ProfilePage();
+        }else if(c.currentIndex.value==3){
+          return SettingsPage();
+        }else{
+          return ErrorPage();
+        }
+      }),
     );
   }
 }
