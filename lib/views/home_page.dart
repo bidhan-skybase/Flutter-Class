@@ -12,42 +12,72 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Home Page")),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black12,
+          currentIndex: c.currentIndex.value,
+          onTap: (index) {
+            c.changePage(index);
+          },
+          selectedItemColor: Colors.white,
+          items: List.generate(c.pages.length, (index) {
+            final page = c.pages[index];
+            return BottomNavigationBarItem(
+              icon: Icon(page["icon"]),
+              label: page["label"],
+            );
+          }),
+        ),
+      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
               //to reflect observable variable changes
-              Obx((){
+              Obx(() {
                 return Text(
                   c.count.value.toString(),
                   style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
                 );
               }),
-             Text("this is the count"),
+              Text("this is the count"),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: (){c.decreaseCount();}, child: Text("Decrease")),
-                  ElevatedButton(onPressed: (){c.resetCount();}, child: Text("Reset")),
-                  ElevatedButton(onPressed: (){c.increaseCount();}, child: Text("Increase"))
+                  ElevatedButton(
+                    onPressed: () {
+                      c.decreaseCount();
+                    },
+                    child: Text("Decrease"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      c.resetCount();
+                    },
+                    child: Text("Reset"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      c.increaseCount();
+                    },
+                    child: Text("Increase"),
+                  ),
                 ],
               ),
-              SizedBox(
-                height: 50,
-              ),
+              SizedBox(height: 50),
               InkWell(
-                onTap: (){
+                onTap: () {
                   c.toggleLikeStatus();
                 },
-                child: Obx((){
-                  if(c.isLiked.value==true){
-                   return Icon(Icons.favorite,color: Colors.red,);
-                  }else{
-                    return Icon(Icons.favorite_border,color: Colors.red,);
+                child: Obx(() {
+                  if (c.isLiked.value == true) {
+                    return Icon(Icons.favorite, color: Colors.red);
+                  } else {
+                    return Icon(Icons.favorite_border, color: Colors.red);
                   }
                 }),
-              )
-
+              ),
             ],
           ),
         ),

@@ -9,7 +9,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage());
+    return MaterialApp(themeMode: ThemeMode.system,
+
+        theme: ThemeData(
+          bottomNavigationBarTheme: BottomNavigationBarThemeData(
+            backgroundColor: Colors.green,
+
+          )
+        ),
+        home: HomePage());
   }
 }
 
