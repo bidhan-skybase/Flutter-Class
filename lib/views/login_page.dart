@@ -33,7 +33,6 @@ class LoginPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               ElevatedButton(onPressed: () {
-
                 Get.to(()=>MultiplesPage(),arguments: c.numberController.text);
               }, child: Text("Next")),
             ],

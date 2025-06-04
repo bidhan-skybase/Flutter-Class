@@ -16,7 +16,18 @@ class MultiplesPage extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(16),
           child: Column(
-            children: [Text("The twice of $num is ${(args ?? 0) * 2}")],
+            children: [
+              ListView.builder(
+                itemCount: 11,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return Text(
+                    "${args.toString()} * ${index.toString()} = ${index * args!}",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),
