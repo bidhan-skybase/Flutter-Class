@@ -16,16 +16,19 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+      ),
       bottomNavigationBar: Obx(
         () => BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.black12,
+          backgroundColor: Colors.black,
           currentIndex: c.currentIndex.value,
           onTap: (index) {
             c.changePage(index);
           },
           selectedItemColor: Colors.white,
+          unselectedItemColor: Colors.grey,
           items: List.generate(c.pages.length, (index) {
             final page = c.pages[index];
             return BottomNavigationBarItem(
