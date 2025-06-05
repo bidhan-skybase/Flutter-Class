@@ -31,18 +31,28 @@ class HomePage extends StatelessWidget {
                 },
               ),
               //wrap with sizedbox in case of horizontal scrolling
+
               SizedBox(
                 height: 40,
                 child: ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: AlwaysScrollableScrollPhysics(),
                   itemCount: 20,
                   scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.only(right: 40),
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
-                    return ElevatedButton(
-                      onPressed: () {},
-                      child: Text("test $index"),
-                    );
+                    if(index.isEven){
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 20),
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          child: Text("test $index"),
+                        ),
+                      );
+                    }else{
+                      return SizedBox();
+                    }
+
                   },
                 ),
               ),
