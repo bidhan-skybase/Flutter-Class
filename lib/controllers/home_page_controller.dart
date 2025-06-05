@@ -1,5 +1,6 @@
 import 'package:demoapp/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_debouncer/flutter_debouncer.dart';
 import 'package:get/get.dart';
 
 //variable declaration
@@ -8,7 +9,7 @@ import 'package:get/get.dart';
 class HomePageController extends GetxController {
   RxBool isSearchFieldTap = false.obs;
   TextEditingController sc = TextEditingController();
-  late Worker debouncer;
+  final Debouncer debouncer = Debouncer();
 
   RxList<String> items =
       ['Banana',

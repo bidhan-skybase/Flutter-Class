@@ -26,7 +26,12 @@ class HomePage extends StatelessWidget {
                       c.isSearchFieldTap.value = true;
                     },
                     onChanged: (value) {
-                      c.searchText(value);
+                      c.debouncer.debounce(
+                        duration: Duration(milliseconds: 300),
+                        onDebounce: () {
+                          c.searchText(value);
+                        },
+                      );
                     },
                     decoration: InputDecoration(
                       prefixIcon: Obx(() {
@@ -38,7 +43,7 @@ class HomePage extends StatelessWidget {
                                   : Colors.grey,
                         );
                       }),
-          
+
                       enabledBorder: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.blue),
