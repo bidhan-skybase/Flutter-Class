@@ -6,18 +6,33 @@ import 'package:get/get.dart';
 //logic work
 // api calls
 class HomePageController extends GetxController {
-  Rx<Color> bgColor = AppColors.refreshingColor.obs;
+  RxBool isSearchFieldTap = false.obs;
+  TextEditingController sc = TextEditingController();
+  late Worker debouncer;
 
-
-  // list of custom maps
-  RxList bgColorMap =
-      [
-        {"title": "Primary Color", "color": AppColors.primaryColor},
-        {"title": "Sign Up Color", "color": AppColors.signUpColor},
-        {"title": "Refreshing Color", "color": AppColors.refreshingColor},
+  RxList<String> items =
+      ['Banana',
+        'Orange',
+        'Grapes',
+        'Pineapple',
+        'Mango',
+        'Watermelon',
+        'Strawberry',
+        'Blueberry',
+        'Peach',
       ].obs;
 
-  void onColorPressed(Color color) {
-    bgColor.value = color;
+  RxList filteredItems = [].obs;
+//aPPlE
+  void searchText(String value) {
+    filteredItems.clear();
+    for (var item in items) {
+      //apple
+      if (item.toLowerCase().contains(value.toLowerCase())) {
+
+
+        filteredItems.add(item);
+      }
+    }
   }
 }

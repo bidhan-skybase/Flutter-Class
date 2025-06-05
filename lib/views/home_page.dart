@@ -10,56 +10,56 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Scaffold(
-        backgroundColor: c.bgColor.value,
+    return GestureDetector(
+      onTap: () => c.isSearchFieldTap.value = false,
+      child: Scaffold(
         appBar: AppBar(title: Text("Home Page")),
-        body: Center(
-          child: Column(
-            children: [
-              ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: c.bgColorMap.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return ElevatedButton(
-                    onPressed: () {
-                      c.onColorPressed(c.bgColorMap[index]['color']);
+        body: SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: c.sc,
+                    onTap: () {
+                      c.isSearchFieldTap.value = true;
                     },
-                    child: Text(c.bgColorMap[index]['title']),
-                  );
-                },
+                    onChanged: (value) {
+                      c.searchText(value);
+                    },
+                    decoration: InputDecoration(
+                      prefixIcon: Obx(() {
+                        return Icon(
+                          Icons.search,
+                          color:
+                              c.isSearchFieldTap.value == true
+                                  ? Colors.blue
+                                  : Colors.grey,
+                        );
+                      }),
+          
+                      enabledBorder: OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.blue),
+                      ),
+                    ),
+                  ),
+                  Obx(() {
+                    return ListView.builder(
+                      itemCount: c.filteredItems.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ListTile(title: Text(c.filteredItems[index]));
+                      },
+                    );
+                  }),
+                ],
               ),
-              //wrap with sizedbox in case of horizontal scrolling
-
-              SizedBox(
-                height: 40,
-                child: ListView.builder(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  itemCount: 20,
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.only(right: 40),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    if(index.isEven){
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text("test $index"),
-                        ),
-                      );
-                    }else{
-                      return SizedBox();
-                    }
-
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-      );
-    });
+      ),
+    );
   }
 }
