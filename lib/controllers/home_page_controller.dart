@@ -6,9 +6,18 @@ import 'package:get/get.dart';
 //logic work
 // api calls
 class HomePageController extends GetxController {
-  Rx<Color> bgColor=AppColors.refreshingColor.obs;
+  Rx<Color> bgColor = AppColors.refreshingColor.obs;
 
-  void onColorPressed(Color color){
-    bgColor.value=color;
+
+  // list of custom maps
+  RxList bgColorMap =
+      [
+        {"title": "Primary Color", "color": AppColors.primaryColor},
+        {"title": "Sign Up Color", "color": AppColors.signUpColor},
+        {"title": "Refreshing Color", "color": AppColors.refreshingColor},
+      ].obs;
+
+  void onColorPressed(Color color) {
+    bgColor.value = color;
   }
 }

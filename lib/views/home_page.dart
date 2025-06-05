@@ -10,34 +10,46 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return Obx((){
+    return Obx(() {
       return Scaffold(
         backgroundColor: c.bgColor.value,
         appBar: AppBar(title: Text("Home Page")),
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                ElevatedButton(onPressed: () {
-                  c.onColorPressed(AppColors.primaryColor);
-
-                }, child: Text("Primary color")),
-                ElevatedButton(
-                  onPressed: () {
-                    c.onColorPressed(AppColors.signUpColor);
+        body: Center(
+          child: Column(
+            children: [
+              ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: c.bgColorMap.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  return ElevatedButton(
+                    onPressed: () {
+                      c.onColorPressed(c.bgColorMap[index]['color']);
+                    },
+                    child: Text(c.bgColorMap[index]['title']),
+                  );
+                },
+              ),
+              //wrap with sizedbox in case of horizontal scrolling
+              SizedBox(
+                height: 40,
+                child: ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: 20,
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return ElevatedButton(
+                      onPressed: () {},
+                      child: Text("test $index"),
+                    );
                   },
-                  child: Text("signUpColor color"),
                 ),
-                ElevatedButton(onPressed: () {
-                  c.onColorPressed(AppColors.refreshingColor);
-                }, child: Text("refreshing color")),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       );
     });
-
   }
 }
