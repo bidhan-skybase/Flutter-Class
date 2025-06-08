@@ -14,41 +14,32 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(title: Text("Home Page")),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            children: [
-              //to reflect observable variable changes
-              Obx((){
-                return Text(
-                  c.count.value.toString(),
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
-                );
-              }),
-             Text("this is the count"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(onPressed: (){c.decreaseCount();}, child: Text("Decrease")),
-                  ElevatedButton(onPressed: (){c.resetCount();}, child: Text("Reset")),
-                  ElevatedButton(onPressed: (){c.increaseCount();}, child: Text("Increase"))
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              InkWell(
-                onTap: (){
-                  c.toggleLikeStatus();
-                },
-                child: Obx((){
-                  if(c.isLiked.value==true){
-                   return Icon(Icons.favorite,color: Colors.red,);
-                  }else{
-                    return Icon(Icons.favorite_border,color: Colors.red,);
-                  }
-                }),
-              )
-
-            ],
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                TextField(
+                  controller: c.userName,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 40),
+                ElevatedButton(
+                  onPressed: () {
+                    c.saveLocally();
+                  },
+                  child: Text("Save"),
+                ),
+                SizedBox(height: 40),
+                Text("The user name is ${c.userName.text}"),
+              ],
+            ),
           ),
         ),
       ),

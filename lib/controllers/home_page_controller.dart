@@ -1,32 +1,26 @@
+import 'package:demoapp/helpers/storage_helpers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 //variable declaration
 //logic work
 // api calls
 class HomePageController extends GetxController {
+  TextEditingController userName = TextEditingController();
 
-  //for making the variable observable.
-  RxInt count = 0.obs;
-
-  RxBool isLiked=true.obs;
-
-  void toggleLikeStatus(){
-    isLiked.value=!isLiked.value;
+  @override
+  onInit() {
+    fetchUserName();
+    super.onInit();
   }
 
-  void increaseCount() {
-    count = count + 1;
-    print("the count is ${count}");
+  void saveLocally() {
+    StorageHelpers.saveUserName(userName.text);
   }
 
-
-  void decreaseCount() {
-    count = count - 1;
-    print("the count is ${count}");
-  }
-
-  void resetCount() {
-    count.value = 0;
-    print("the count is ${count}");
+  void fetchUserName() {
+print(StorageHelpers.fetchUserName());
+    userName.text = StorageHelpers.fetchUserName() ?? "no user name";
+    print(userName);
   }
 }
