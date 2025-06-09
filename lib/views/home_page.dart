@@ -4,7 +4,6 @@ import 'package:demoapp/controllers/home_page_controller.dart';
 import 'package:demoapp/models/joke_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
 
 class HomePage extends StatelessWidget {
   //to bring home page controller in the view
@@ -17,25 +16,34 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("Home Page")),
       body: SingleChildScrollView(
-        child: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ElevatedButton(onPressed: () async{
+              ElevatedButton(
+                onPressed: () async {
+                  c.fetchJoke();
+                },
+                child: Text("Hit api"),
+              ),
 
-                //1. Declaring the uri
-                var url = Uri.parse("https://official-joke-api.appspot.com/random_joke");
+              SizedBox(height: 20),
+              Obx(() {
+                return Column(
+                  children: [
+                    Text(
+                      "Question: ${c.joke.value?.setup ?? ""}",
+                      style: TextStyle(fontSize: 22),
+                    ),
+                    Text(
+                      "Answer: ${c.joke.value?.punchline ?? ""}",
+                      style: TextStyle(fontSize: 22),
+                    ),
+                  ],
+                );
+              })
 
-                //2. Hitting the uri
-                http.Response response = await http.get(url);
-
-                //3. Converting the uri to map
-                dynamic data = json.decode(response.body);
-
-                //4. Converting the map to custom flutter model
-                JokeModel jokeResponse=JokeModel.fromJson(data);
-                print(jokeResponse.type);
-                print(response);
-              }, child: Text("Hit api")),
             ],
           ),
         ),

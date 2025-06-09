@@ -1,32 +1,26 @@
+import 'dart:convert';
+
+import 'package:demoapp/models/joke_model.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 //variable declaration
 //logic work
 // api calls
 class HomePageController extends GetxController {
+  //nullable
+  Rxn<JokeModel> joke = Rxn();
 
-  //for making the variable observable.
-  RxInt count = 0.obs;
+  fetchJoke() async {
+    var url = Uri.parse("https://official-joke-api.appspot.com/random_joke");
 
-  RxBool isLiked=true.obs;
+    //2. Hitting the uri
+    http.Response response = await http.get(url);
 
-  void toggleLikeStatus(){
-    isLiked.value=!isLiked.value;
-  }
+    //3. Converting the uri to map
+    dynamic data = json.decode(response.body);
 
-  void increaseCount() {
-    count = count + 1;
-    print("the count is ${count}");
-  }
-
-
-  void decreaseCount() {
-    count = count - 1;
-    print("the count is ${count}");
-  }
-
-  void resetCount() {
-    count.value = 0;
-    print("the count is ${count}");
+    //4. Converting the map to custom flutter model
+    joke.value = JokeModel.fromJson(data);
   }
 }
