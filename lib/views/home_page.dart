@@ -1,4 +1,5 @@
 import 'package:demoapp/controllers/home_page_controller.dart';
+import 'package:demoapp/model/to_do_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,26 +13,30 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Home Page")),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  c.fetchImage();
-                },
-                child: Text("data"),
-              ),
-              SizedBox(height: 20),
-              Obx(() {
-                if (c.isLoading.value) {
-                  return CircularProgressIndicator();
-                } else {
-                  return Image.network(c.imageUrl.value ?? "");
-                }
-              }),
-            ],
-          ),
+      body: Center(
+        child: Column(
+          children: [
+
+            SizedBox(height: 20),
+            Obx(() {
+              return Expanded(
+                child: ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount: c.tasks.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    ToDoListModel task = c.tasks[index];
+                    return ListTile(
+                      title: Text(task.todo ?? ""),
+                      trailing:
+                      task.completed??true?
+                      Icon(Icons.check):Icon(Icons.close),
+                    );
+                  },
+                ),
+              );
+            }),
+          ],
         ),
       ),
     );
