@@ -1,32 +1,30 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 //variable declaration
 //logic work
 // api calls
 class HomePageController extends GetxController {
 
-  //for making the variable observable.
-  RxInt count = 0.obs;
+  RxnString imageUrl=RxnString();
+  RxBool isLoading=false.obs;
 
-  RxBool isLiked=true.obs;
+  fetchImage() async {
+    isLoading.value=true;
+    var url = Uri.parse("https://dog.ceo/api/breeds/image/random");
 
-  void toggleLikeStatus(){
-    isLiked.value=!isLiked.value;
-  }
+    //2. Hitting the uri
+    http.Response response = await http.get(url);
 
-  void increaseCount() {
-    count = count + 1;
-    print("the count is ${count}");
-  }
+    //3. Converting the uri to map
+    dynamic data = json.decode(response.body);
 
+    imageUrl.value=data['message'];
 
-  void decreaseCount() {
-    count = count - 1;
-    print("the count is ${count}");
-  }
-
-  void resetCount() {
-    count.value = 0;
-    print("the count is ${count}");
+    isLoading.value=false;
+print(imageUrl.value);
+    //4. Converting the map to custom flutter model
   }
 }

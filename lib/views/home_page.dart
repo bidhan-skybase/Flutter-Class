@@ -16,38 +16,20 @@ class HomePage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              //to reflect observable variable changes
-              Obx((){
-                return Text(
-                  c.count.value.toString(),
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
-                );
-              }),
-             Text("this is the count"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(onPressed: (){c.decreaseCount();}, child: Text("Decrease")),
-                  ElevatedButton(onPressed: (){c.resetCount();}, child: Text("Reset")),
-                  ElevatedButton(onPressed: (){c.increaseCount();}, child: Text("Increase"))
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              InkWell(
-                onTap: (){
-                  c.toggleLikeStatus();
+              ElevatedButton(
+                onPressed: () {
+                  c.fetchImage();
                 },
-                child: Obx((){
-                  if(c.isLiked.value==true){
-                   return Icon(Icons.favorite,color: Colors.red,);
-                  }else{
-                    return Icon(Icons.favorite_border,color: Colors.red,);
-                  }
-                }),
-              )
-
+                child: Text("data"),
+              ),
+              SizedBox(height: 20),
+              Obx(() {
+                if (c.isLoading.value) {
+                  return CircularProgressIndicator();
+                } else {
+                  return Image.network(c.imageUrl.value ?? "");
+                }
+              }),
             ],
           ),
         ),
