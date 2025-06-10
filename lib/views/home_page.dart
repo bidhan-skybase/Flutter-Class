@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   c.fetchJoke();
+                  c.fetchFact();
                 },
                 child: Text("Hit api"),
               ),
@@ -38,6 +39,10 @@ class HomePage extends StatelessWidget {
                     ),
                     Text(
                       "Answer: ${c.joke.value?.punchline ?? ""}",
+                      style: TextStyle(fontSize: 22),
+                    ),
+                    Text(
+                      "Random fact: ${c.fact.value?.fact ?? ""}",
                       style: TextStyle(fontSize: 22),
                     ),
                   ],
