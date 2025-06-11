@@ -1,4 +1,4 @@
-import 'package:demoapp/colors.dart';
+import 'package:demoapp/constant/colors.dart';
 import 'package:demoapp/views/home_page.dart';
 import 'package:flutter/material.dart';
 
