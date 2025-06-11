@@ -1,4 +1,5 @@
 import 'package:demoapp/controllers/home_page_controller.dart';
+import 'package:demoapp/model/to_do_list_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,44 +13,30 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Home Page")),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              //to reflect observable variable changes
-              Obx((){
-                return Text(
-                  c.count.value.toString(),
-                  style: TextStyle(fontSize: 32, fontWeight: FontWeight.w800),
-                );
-              }),
-             Text("this is the count"),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(onPressed: (){c.decreaseCount();}, child: Text("Decrease")),
-                  ElevatedButton(onPressed: (){c.resetCount();}, child: Text("Reset")),
-                  ElevatedButton(onPressed: (){c.increaseCount();}, child: Text("Increase"))
-                ],
-              ),
-              SizedBox(
-                height: 50,
-              ),
-              InkWell(
-                onTap: (){
-                  c.toggleLikeStatus();
-                },
-                child: Obx((){
-                  if(c.isLiked.value==true){
-                   return Icon(Icons.favorite,color: Colors.red,);
-                  }else{
-                    return Icon(Icons.favorite_border,color: Colors.red,);
-                  }
-                }),
-              )
+      body: Center(
+        child: Column(
+          children: [
 
-            ],
-          ),
+            SizedBox(height: 20),
+            Obx(() {
+              return Expanded(
+                child: ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemCount: c.tasks.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    ToDoListModel task = c.tasks[index];
+                    return ListTile(
+                      title: Text(task.todo ?? ""),
+                      trailing:
+                      task.completed??true?
+                      Icon(Icons.check):Icon(Icons.close),
+                    );
+                  },
+                ),
+              );
+            }),
+          ],
         ),
       ),
     );
