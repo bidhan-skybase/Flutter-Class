@@ -1,4 +1,5 @@
 import 'package:demoapp/controllers/home_page_controller.dart';
+import 'package:demoapp/views/recipe_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,43 +36,48 @@ class HomePage extends StatelessWidget {
                           ),
                       itemBuilder: (context, index) {
                         var recipe = c.recipes[index];
-                        return Container(
-                          padding: EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
-                            // Required for shadow to be visible
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
-                                spreadRadius: 2,
-                                blurRadius: 6,
-                                offset: Offset(
-                                  0,
-                                  3,
-                                ), // changes position of shadow
-                              ),
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(child: Image.network(recipe.image ?? "")),
-                              Text(recipe.name ?? "",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
-                              Row(
-                                children: [
-                                  Text("Difficulty: ",style: TextStyle(fontSize: 12,color: Colors.grey),),
-                                  Text(recipe.difficulty??"",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text("Cuisine: ",style: TextStyle(fontSize: 12,color: Colors.grey),),
-                                  Text(recipe.cuisine??"",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),),
-                                ],
-                              )
+                        return InkWell(
+                          onTap:(){
+                            c.onCardTap(recipe.id!);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.all(12),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                              // Required for shadow to be visible
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  spreadRadius: 2,
+                                  blurRadius: 6,
+                                  offset: Offset(
+                                    0,
+                                    3,
+                                  ), // changes position of shadow
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(child: Image.network(recipe.image ?? "")),
+                                Text(recipe.name ?? "",style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                                Row(
+                                  children: [
+                                    Text("Difficulty: ",style: TextStyle(fontSize: 12,color: Colors.grey),),
+                                    Text(recipe.difficulty??"",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text("Cuisine: ",style: TextStyle(fontSize: 12,color: Colors.grey),),
+                                    Text(recipe.cuisine??"",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w600),),
+                                  ],
+                                )
 
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },
