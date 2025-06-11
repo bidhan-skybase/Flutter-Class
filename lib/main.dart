@@ -1,6 +1,8 @@
 import 'package:demoapp/constant/colors.dart';
+import 'package:demoapp/constant/pages.dart';
 import 'package:demoapp/views/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,7 +11,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: HomePage());
+    return GetMaterialApp(initialRoute: HomePage.routeName, getPages: getPages);
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   //to bring home page controller in the view
+  static const routeName="/homePage";
   final c = Get.put((HomePageController()));
 
   HomePage({super.key});
